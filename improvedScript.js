@@ -23,6 +23,11 @@ const initialIndex = 3;
 getCurrentImageForPosition( initialIndex );
 moveToImageWithTransition( initialIndex, noTransition );
 
+renderCircles();
+// make the one at the given index active
+const initialActiveCircle = circleList[ initialIndex ];
+initialActiveCircle.classList.add( "active" );
+
 function getNextImagePosition() {
     removeClassFromFormerImage( currentImagePosition );
     currentImagePosition = Math.min( currentImagePosition + 1, lastPosition );
@@ -124,7 +129,7 @@ function getActiveCircleAndPosition() {
 function moveFromFirstToPrevious() {
     if ( currentImagePosition === firstPosition ) {
         removeClassFromFormerImage( currentImagePosition );
-        moveToImageWithTransition( lastPosition, noTransition );
+        moveToImageWithTransition( lastPosition, noTransition ); // first image duplicate
 
         setTimeout( function() {
             removeClassFromFormerImage( currentImagePosition );
@@ -136,18 +141,13 @@ function moveFromFirstToPrevious() {
     return false;
 }
 
-renderCircles();
-// make the first one active
-const initialActiveCircle = circleList[ initialIndex ];
-initialActiveCircle.classList.add( "active" );
-
 function handleChangeToLeft() {
     count += 1;
     if ( count === 1 ) {
         getNextImagePosition();
         setTimeout( function() {
             count = 0;
-        }, delay );
+        }, delay + 200 );
     }
 }
 
@@ -157,7 +157,7 @@ function handleChangeToRight() {
         getPreviousImagePosition();
         setTimeout( function() {
             count = 0;
-        }, delay );
+        }, delay + 200 );
     }
 }
 leftButton.addEventListener( "click", handleChangeToRight );
