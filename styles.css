@@ -39,7 +39,7 @@ button:focus {
     outline: none;
 }
 
-.move-right {
+.right-button {
     right: 0;
 }
 
@@ -89,7 +89,6 @@ li.circle-container {
     height: 25px;
     list-style-type: none;
     display: inline-block;
-    /*margin: 0 5px;*/
 
 }
 a.circle {
@@ -105,7 +104,9 @@ a.active {
     width: 20px;
     height: 20px;
     border: 1px solid #90A4AE;
+    transition: height 200ms ease-in-out;
 }
+
 
 a.circle:not(.active) {
     margin-top: 2px;

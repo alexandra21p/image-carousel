@@ -1,6 +1,6 @@
 /* global window: window */
-const leftButton = window.document.querySelector( ".move-right" );
-const rightButton = window.document.querySelector( ".move-left" );
+const leftButton = window.document.querySelector( ".left-button" );
+const rightButton = window.document.querySelector( "right-button" );
 
 const slider = window.document.querySelector( ".slider" );
 const imageWidth = 600;
