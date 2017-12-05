@@ -28,7 +28,7 @@ renderCircles();
 const initialActiveCircle = circleList[ initialIndex ];
 initialActiveCircle.classList.add( "active" );
 
-function getNextImagePosition() {
+function changeNextImage() {
     removeClassFromFormerImage( currentImagePosition );
     currentImagePosition = Math.min( currentImagePosition + 1, lastPosition );
     if ( currentImagePosition === lastPosition ) {
@@ -45,22 +45,12 @@ function getNextImagePosition() {
     changeActiveCircleRight();
 }
 
-function getPreviousImagePosition() {
+function changePreviousImage() {
     if ( moveFromFirstToPrevious() ) {
         return;
     }
     removeClassFromFormerImage( currentImagePosition );
     currentImagePosition = Math.max( currentImagePosition - 1, firstPosition );
-    if ( currentImagePosition === firstPosition ) {
-        moveToImageWithTransition( currentImagePosition, transition );
-        changeActiveCircleLeft();
-
-        setTimeout( function() {
-            removeClassFromFormerImage( currentImagePosition );
-            moveToImageWithTransition( lastPosition, noTransition );
-        }, delay );
-        return;
-    }
     moveToImageWithTransition( currentImagePosition, transition );
     changeActiveCircleLeft();
 }
@@ -141,24 +131,23 @@ function moveFromFirstToPrevious() {
     return false;
 }
 
-function handleChangeToLeft() {
+function moveAfterOneClick( func ) {
     count += 1;
     if ( count === 1 ) {
-        getNextImagePosition();
+        func();
         setTimeout( function() {
             count = 0;
         }, delay + 200 );
     }
 }
 
-function handleChangeToRight() {
-    count += 1;
-    if ( count === 1 ) {
-        getPreviousImagePosition();
-        setTimeout( function() {
-            count = 0;
-        }, delay + 200 );
-    }
+function handleChangeToLeft() {
+    moveAfterOneClick( changeNextImage );
 }
+
+function handleChangeToRight() {
+    moveAfterOneClick( changePreviousImage );
+}
+
 leftButton.addEventListener( "click", handleChangeToRight );
 rightButton.addEventListener( "click", handleChangeToLeft );
